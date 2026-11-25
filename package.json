@@ -1,0 +1,8 @@
+{
+  "name": "stocks-scuola-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Stocks Scuola web app with a same-origin Classeviva relay",
+  "engines": { "node": ">=20" },
+  "scripts": { "start": "node server.js" }
+}
