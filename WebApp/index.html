@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#090b12" />
+  <meta name="description" content="Stocks Scuola — monitora voti, medie e andamento scolastico." />
+  <title>Stocks Scuola — Il tuo rendimento</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#dashboard" aria-label="Stocks Scuola home">
+        <span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17.5 9 12l3.5 3.5L20 7"/><path d="M14.5 7H20v5.5"/></svg></span>
+        <span>stocks<span class="brand-light">scuola</span></span>
+      </a>
+      <div class="nav-label" data-i18n="workspace">WORKSPACE</div>
+      <nav class="main-nav" aria-label="Main navigation">
+        <button class="nav-item active" data-view="dashboard"><span class="nav-icon">◫</span><span data-i18n="overview">Panoramica</span></button>
+        <button class="nav-item" data-view="subjects"><span class="nav-icon">▤</span><span data-i18n="subjects">Materie</span><span class="nav-count" id="nav-count">0</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="term-card"><span class="status-dot"></span><span><strong data-i18n="schoolYear">Anno scolastico</strong><small>2025 / 2026</small></span><span class="term-chevron">⌄</span></div>
+        <button class="nav-item account-button" id="account-button"><span class="nav-icon">◎</span><span data-i18n="classeviva">Classeviva</span><span class="connection-pill" id="connection-pill">DEMO</span></button>
+        <div class="profile"><div class="avatar">S</div><div class="profile-copy"><strong data-i18n="studentProfile">Profilo studente</strong><small id="profile-source">Demo locale</small></div><button id="language-toggle" class="language-toggle" aria-label="Change language">IT</button></div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="dashboard">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobile-menu" aria-label="Open menu">☰</button>
+        <div class="breadcrumbs"><span data-i18n="workspace">WORKSPACE</span><span class="crumb-slash">/</span><strong id="breadcrumb-current" data-i18n="overview">Panoramica</strong></div>
+        <div class="top-actions"><span class="updated-label" id="updated-label"><i class="live-dot"></i><span data-i18n="updatedNow">Aggiornato ora</span></span><button class="icon-button" id="refresh-button" title="Refresh grades" aria-label="Refresh grades">↻</button><button class="top-avatar" id="top-account" aria-label="Classeviva account">S</button></div>
+      </header>
+
+      <section class="page-section active" id="dashboard-view">
+        <div class="welcome-row"><div><div class="eyebrow"><span class="eyebrow-line"></span><span data-i18n="yourDashboard">IL TUO CRUSCOTTO</span></div><h1 data-i18n="welcomeTitle">Il tuo rendimento,<br/><em>in un unico posto.</em></h1><p class="page-subtitle" data-i18n="welcomeSubtitle">Tieni d’occhio i progressi e scopri dove concentrare le energie.</p></div><button class="button button-quiet" id="import-button"><span>＋</span><span data-i18n="importGrades">Importa voti</span></button><input type="file" id="file-input" accept=".csv,text/csv" hidden /></div>
+
+        <div class="stats-grid">
+          <article class="stat-card featured-stat"><div class="stat-top"><span class="stat-label" data-i18n="overallAverage">Media complessiva</span><span class="stat-icon purple">↗</span></div><div class="stat-value" id="overall-average">—</div><div class="stat-bottom"><span class="stat-note" data-i18n="simpleAverage">Media semplice</span><span class="stat-mini" id="average-note">/ 10</span></div><div class="spark-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+          <article class="stat-card"><div class="stat-top"><span class="stat-label" data-i18n="passingGrades">Sufficienze</span><span class="stat-icon green">✓</span></div><div class="stat-value" id="pass-rate">—</div><div class="stat-bottom"><span class="stat-note" data-i18n="gradesAtLeast6">Voti ≥ 6</span><span class="stat-trend good" id="pass-count">—</span></div><div class="stat-progress"><span id="pass-progress"></span></div></article>
+          <article class="stat-card"><div class="stat-top"><span class="stat-label" data-i18n="totalGrades">Voti registrati</span><span class="stat-icon blue">▦</span></div><div class="stat-value" id="grade-count">0</div><div class="stat-bottom"><span class="stat-note" data-i18n="acrossSubjects">In tutte le materie</span><span class="stat-trend neutral" id="subject-count">0 materie</span></div><div class="mini-subjects" id="mini-subjects" aria-hidden="true"></div></article>
+          <article class="stat-card"><div class="stat-top"><span class="stat-label" data-i18n="bestSubject">Materia migliore</span><span class="stat-icon amber">✦</span></div><div class="best-subject-value" id="best-subject">—</div><div class="stat-bottom"><span class="stat-note" data-i18n="highestAverage">Media più alta</span><span class="stat-trend good" id="best-average">—</span></div><div class="best-subject-accent"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></article>
+        </div>
+
+        <div class="content-grid">
+          <section class="panel performance-panel"><div class="panel-heading"><div><div class="section-kicker" data-i18n="overview">PANORAMICA</div><h2 data-i18n="performanceTrend">Andamento generale</h2></div><div class="range-label"><span class="range-dot"></span><span data-i18n="grades">Voti</span></div></div><div class="chart-wrap"><svg id="overview-chart" class="line-chart" viewBox="0 0 720 220" preserveAspectRatio="none" role="img" aria-label="Grade trend chart"></svg><div class="chart-y-labels"><span>10</span><span>8</span><span>6</span><span>4</span><span>2</span></div></div><div class="chart-x-labels" id="chart-labels"><span>—</span></div><div class="chart-footer"><span class="chart-footnote"><span class="chart-foot-dot"></span><span data-i18n="passingThreshold">Sufficienza: 6</span></span><span class="chart-footnote" id="chart-summary">—</span></div></section>
+          <section class="panel focus-panel"><div class="panel-heading"><div><div class="section-kicker" data-i18n="quickLook">IN BREVE</div><h2 data-i18n="subjectSnapshot">Materie</h2></div><button class="text-button" data-view="subjects" data-i18n="seeAll">Vedi tutte <span>↗</span></button></div><div class="subject-list compact-list" id="dashboard-subjects"></div><div class="focus-empty hidden" id="empty-subjects"><div class="empty-symbol">✳</div><strong data-i18n="noGrades">Nessun voto disponibile</strong><span data-i18n="importHint">Importa un CSV per iniziare.</span></div></section>
+        </div>
+
+        <section class="panel recent-panel"><div class="panel-heading"><div><div class="section-kicker" data-i18n="latestUpdates">ULTIMI AGGIORNAMENTI</div><h2 data-i18n="recentGrades">Voti recenti</h2></div><button class="text-button" data-view="subjects" data-i18n="viewRegister">Vai al registro <span>↗</span></button></div><div class="grade-table-wrap"><table class="grade-table"><thead><tr><th data-i18n="subject">MATERIA</th><th data-i18n="date">DATA</th><th data-i18n="assessment">VERIFICA</th><th data-i18n="grade">VOTO</th><th data-i18n="result">ESITO</th></tr></thead><tbody id="recent-grades"></tbody></table></div><div class="table-empty hidden" id="empty-recent" data-i18n="noRecent">Non ci sono voti da mostrare.</div></section>
+        <footer class="footer-note"><span class="footer-mark">✳</span><span data-i18n="demoNotice">Demo didattica. I dati sono salvati solo in questo browser e non provengono da Classeviva.</span><button id="reset-demo" data-i18n="resetDemo">Ripristina demo</button></footer>
+      </section>
+
+      <section class="page-section hidden" id="subjects-view"><div class="subjects-header"><div><div class="eyebrow"><span class="eyebrow-line"></span><span data-i18n="yourWorkspace">IL TUO WORKSPACE</span></div><h1 data-i18n="yourSubjects">Le tue materie</h1><p class="page-subtitle" data-i18n="subjectsSubtitle">Un riepilogo chiaro per ogni percorso.</p></div><div class="subject-tools"><label class="search-box"><span>⌕</span><input id="subject-search" type="search" placeholder="Cerca una materia" data-placeholder-it="Cerca una materia" data-placeholder-en="Search subjects" /></label><select id="sort-select" aria-label="Sort subjects"><option value="name" data-i18n="sortName">Nome</option><option value="average" data-i18n="sortAverage">Media</option></select></div></div><div class="subject-detail-layout"><div class="subject-list full-list" id="all-subjects"></div><aside class="panel detail-panel" id="detail-panel"><div id="subject-detail-content"></div></aside></div><div class="table-empty hidden" id="empty-search" data-i18n="noSearch">Nessuna materia trovata.</div><footer class="footer-note"><span class="footer-mark">✳</span><span data-i18n="demoNotice">Demo didattica. I dati sono salvati solo in questo browser e non provengono da Classeviva.</span><button id="import-inline" data-i18n="importGrades">Importa voti</button></footer></section>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <dialog class="modal" id="account-modal"><form method="dialog"><button class="modal-close" aria-label="Close">×</button></form><div class="modal-brand"><span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17.5 9 12l3.5 3.5L20 7"/><path d="M14.5 7H20v5.5"/></svg></span></div><div class="section-kicker" data-i18n="secureConnection">CONNESSIONE SICURA</div><h2 data-i18n="connectClasseviva">Collega Classeviva</h2><p data-i18n="credentialNote">Accedi con il codice personale e la password Classeviva. Il server li usa solo per questa richiesta: non li salva. Per aggiornare i voti, la password resta in memoria solo finché questa scheda è aperta.</p><form id="login-form" autocomplete="on"><label class="login-label" for="login-username" data-i18n="personalCode">Codice personale / email</label><input class="login-input" id="login-username" name="username" autocomplete="username" required maxlength="160"/><label class="login-label" for="login-password" data-i18n="password">Password</label><input class="login-input" id="login-password" name="password" type="password" autocomplete="current-password" required maxlength="256"/><div class="login-error" id="login-error" role="status" aria-live="polite"></div><button class="button button-primary modal-link" id="login-submit" type="submit"><span data-i18n="login">Accedi</span></button></form><button class="modal-secondary" id="modal-import" data-i18n="importCsvInstead">Oppure importa un file CSV</button><button class="modal-secondary disconnect-button hidden" id="disconnect-button" data-i18n="disconnect">Disconnetti e cancella i voti salvati</button><a class="official-link" href="https://web.spaggiari.eu/" target="_blank" rel="noopener noreferrer"><span data-i18n="openClasseviva">Apri Classeviva</span><span>↗</span></a></dialog>
+  <script src="app.js"></script>
+</body>
+</html>
